@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">projectWithSQL</string>
+    <string name="btn_name">Add</string>
+    <string name="text_name">Enter word</string>
+    <string name="text_name2">Your words</string>
+    <string name="text_list">See the list</string>
+</resources>
