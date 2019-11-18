@@ -1,14 +1,13 @@
 package com.example.projectwithsql;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +19,7 @@ public class ListActivity  extends AppCompatActivity {
     ListView listView;
     List<String> stringArrayList;
     private MyAdapter myAdapter;
+    TextView text;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class ListActivity  extends AppCompatActivity {
 
         myAdapter = new MyAdapter();
         listView.setAdapter(myAdapter);
+        myAdapter.notifyDataSetChanged();
 
     }
 
@@ -54,20 +55,18 @@ public class ListActivity  extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater li = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = li.inflate(R.layout.string_lay, null);
+            text = (TextView)convertView.findViewById(R.id.textString);
 
-            if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.activity_words, parent, false);
 
-                TextView text = convertView.findViewById(R.id.text);
-                String texiiik =stringArrayList.get(position);
-                System.out.println("view text");
-                System.out.println(texiiik);
-                text.setText(texiiik);
-                System.out.println("text po pridani");
-                System.out.println(text);
-            }
+            String task = stringArrayList.get(position);
+            System.out.println("........."+task);
+            text.setText(task);
+
             return convertView;
         }
+
     }
 
     private void addingDatatoList(){
@@ -77,8 +76,6 @@ public class ListActivity  extends AppCompatActivity {
             System.out.println("cursor nie je null");
             while (cursor.moveToNext()){
                 String textik = cursor.getString(1);
-                System.out.println("vypisujem textik");
-                System.out.println(textik);
                 stringArrayList.add(textik);
             }
 
